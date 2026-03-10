@@ -82,6 +82,10 @@ Ensure you have the following installed on your system:
 * **Data Transience**: Chat messages are only kept in memory and passed between sockets; they are deliberately wiped on disconnection.
 * **Encrypted Passwords**: Any passwords created during optional registration are salted and hashed utilizing `bcryptjs` before entering the local SQLite databases.
 
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
 ---
 
 <div align="center">
