@@ -23,7 +23,7 @@ const io = new Server(server, {
 // In-memory state and Live Stats
 let waitingQueue = [];
 let usersOnlineCount = 0;
-const uniqueChatters = new Set();
+const uniqueChattersMap = new Map();
 let totalChatters = 0;
 let totalChatsCompleted = 0;
 let totalMessagesSent = 0;
@@ -113,11 +113,13 @@ function startServer() {
 
         // Parse user identifier from handshake query parameters
         const handShakeId = socket.handshake.query.userId || socket.id;
+        socket.data.handShakeId = handShakeId;
 
         // Increment total users online count
         usersOnlineCount++;
-        uniqueChatters.add(handShakeId);
-        totalChatters = uniqueChatters.size;
+        const currentCount = uniqueChattersMap.get(handShakeId) || 0;
+        uniqueChattersMap.set(handShakeId, currentCount + 1);
+        totalChatters = uniqueChattersMap.size;
 
         io.emit('users_online', usersOnlineCount);
         broadcastStats();
@@ -207,6 +209,18 @@ function startServer() {
             // Decrement online users
             usersOnlineCount--;
             if (usersOnlineCount < 0) usersOnlineCount = 0;
+
+            const handShakeId = socket.data.handShakeId;
+            if (handShakeId) {
+                const currentCount = uniqueChattersMap.get(handShakeId) || 0;
+                if (currentCount <= 1) {
+                    uniqueChattersMap.delete(handShakeId);
+                } else {
+                    uniqueChattersMap.set(handShakeId, currentCount - 1);
+                }
+                totalChatters = uniqueChattersMap.size;
+            }
+
             io.emit('users_online', usersOnlineCount);
             broadcastStats();
 
