@@ -1,0 +1,22 @@
+{
+    "name": "ChatChat Web Client",
+    "short_name": "ChatChat",
+    "description": "Anonymous real-time chat with strangers.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0b0615",
+    "theme_color": "#ff2a6d",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
