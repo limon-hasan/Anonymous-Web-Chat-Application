@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { SocketProvider } from "@/components/SocketProvider";
 import StarryBackground from "@/components/StarryBackground";
@@ -7,12 +7,15 @@ export const metadata: Metadata = {
   title: "ChatChat | Vanish in the Void",
   description: "Anonymous real-time messaging. No signup. No history. Just chat.",
   manifest: "/manifest.json",
-  themeColor: "#ff2a6d",
   appleWebApp: {
     capable: true,
     title: "ChatChat",
     statusBarStyle: "black-translucent",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#ff2a6d",
 };
 
 export default function RootLayout({
